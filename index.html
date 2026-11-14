@@ -1,0 +1,38 @@
+---
+layout: default
+---
+{%- assign latest = site.posts.first -%}
+{%- if latest %}
+{% include ban-tin.html post=latest body=latest.content moi_nhat=true %}
+{%- else %}
+<p class="none">Chưa có bản tin nào.</p>
+{%- endif %}
+
+<section class="archive" id="luu-tru" aria-labelledby="luu-tru-h">
+  <h2 id="luu-tru-h" class="archive__h">Lưu trữ bản tin</h2>
+
+  <form class="search" role="search" onsubmit="return false">
+    <label class="search__lab" for="q">Tìm trong mọi bản tin</label>
+    <input class="search__in" id="q" type="search" autocomplete="off" placeholder="Ví dụ: Prop 65, cước, đình công" data-src="{{ '/search.json' | relative_url }}">
+  </form>
+  <div id="kq" class="results" aria-live="polite" hidden></div>
+
+  <div id="ds" class="months">
+  {%- assign thang = site.posts | group_by_exp: "p", "p.date | date: '%Y-%m'" -%}
+  {%- for g in thang %}
+    {%- assign d0 = g.items.first.date %}
+    <section class="month">
+      <h3 class="month__h">Tháng {{ d0 | date: "%-m/%Y" }} <span>{{ g.items.size }} bản</span></h3>
+      <ol class="days">
+      {%- for p in g.items %}
+        <li><a class="day" href="{{ p.url | relative_url }}">
+          {% include ngay.html date=p.date buoi=p.buoi %}
+          <span class="day__t">{% if p.khong_co_tin %}Không có tin mới đủ liên quan.{% else %}{{ p.chu_y | strip_html | truncate: 170 }}{% endif %}</span>
+        </a></li>
+      {%- endfor %}
+      </ol>
+    </section>
+  {%- endfor %}
+  </div>
+</section>
+<script src="{{ '/assets/js/search.js' | relative_url }}" defer></script>

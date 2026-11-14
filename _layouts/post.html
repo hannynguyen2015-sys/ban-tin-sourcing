@@ -1,0 +1,14 @@
+---
+layout: default
+---
+{% include ban-tin.html post=page body=content %}
+
+<nav class="pager" aria-label="Bản tin trước và sau">
+  {%- if page.previous %}
+  <a class="pager__a" href="{{ page.previous.url | relative_url }}"><span>← Bản trước</span>{% include ngay.html date=page.previous.date buoi=page.previous.buoi %}</a>
+  {%- else %}<span></span>{% endif %}
+  {%- if page.next %}
+  <a class="pager__a pager__a--next" href="{{ page.next.url | relative_url }}"><span>Bản sau →</span>{% include ngay.html date=page.next.date buoi=page.next.buoi %}</a>
+  {%- endif %}
+</nav>
+<p class="back"><a href="{{ '/' | relative_url }}#luu-tru">Xem tất cả bản tin</a></p>

@@ -1,0 +1,47 @@
+---
+layout: default
+title: Thuật ngữ
+permalink: /thuat-ngu/
+---
+{%- comment -%}
+  Gom terms của mọi bài. site.posts xếp mới nhất trước, nên khi trùng thuật ngữ
+  (không phân biệt hoa thường) thì giữ lời giải thích mới nhất. Sau đó sắp A–Z.
+{%- endcomment -%}
+{%- assign all = "" | split: "" -%}
+{%- assign seen = "|" -%}
+{%- for p in site.posts -%}
+  {%- for t in p.terms -%}
+    {%- assign key = t.term | downcase | strip -%}
+    {%- assign needle = "|" | append: key | append: "|" -%}
+    {%- unless seen contains needle -%}
+      {%- assign seen = seen | append: key | append: "|" -%}
+      {%- assign all = all | push: t -%}
+    {%- endunless -%}
+  {%- endfor -%}
+{%- endfor -%}
+{%- comment -%} Sắp A–Z không phân biệt dấu: khoá = thuật ngữ bỏ dấu + " #" + vị trí. {%- endcomment -%}
+{%- assign keys = "" | split: "" -%}
+{%- for t in all -%}
+  {%- assign k = t.term | downcase | strip -%}
+  {%- for g in site.bo_dau -%}
+    {%- assign base = g | slice: 0 -%}
+    {%- assign chars = g | remove_first: base | split: "" -%}
+    {%- for ch in chars -%}{%- assign k = k | replace: ch, base -%}{%- endfor -%}
+  {%- endfor -%}
+  {%- assign k = k | append: " #" | append: forloop.index0 -%}
+  {%- assign keys = keys | push: k -%}
+{%- endfor -%}
+{%- assign keys = keys | sort -%}
+{%- assign sorted = "" | split: "" -%}
+{%- for k in keys -%}
+  {%- assign i = k | split: " #" | last | plus: 0 -%}
+  {%- assign sorted = sorted | push: all[i] -%}
+{%- endfor -%}
+{%- assign all = sorted -%}
+<header class="bt-head">
+  <p class="bt-eyebrow"><span class="ngay">{{ all.size }} thuật ngữ, gom từ {{ site.posts.size }} bản tin</span></p>
+  <h1 class="bt-title">Thuật ngữ</h1>
+</header>
+<section class="sec gloss">
+  {% include bang-thuat-ngu.html terms=all %}
+</section>

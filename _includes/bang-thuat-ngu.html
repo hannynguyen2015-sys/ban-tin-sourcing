@@ -1,0 +1,10 @@
+<div class="tbl-wrap">
+<table class="tbl">
+  <thead><tr><th scope="col">Thuật ngữ</th><th scope="col">Giải thích</th></tr></thead>
+  <tbody>
+  {%- for t in include.terms %}
+    <tr><td><strong>{{ t.term | escape }}</strong>{% if t.full and t.full != "" %}<span>{{ t.full | escape }}</span>{% endif %}</td><td>{{ t.desc | escape }}</td></tr>
+  {%- endfor %}
+  </tbody>
+</table>
+</div>

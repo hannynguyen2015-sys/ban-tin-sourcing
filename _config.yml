@@ -1,0 +1,36 @@
+# Bản tin ngành Sourcing: cấu hình Jekyll cho GitHub Pages (không plugin ngoài, không Actions).
+title: "Bản tin ngành Sourcing"
+description: "Bản tin ngành Sourcing, cập nhật 7:30 và 16:30 giờ Việt Nam."
+lang: vi
+timezone: Asia/Ho_Chi_Minh
+
+# Địa chỉ gốc của site.
+# Repo dự kiến tên "ban-tin-sourcing" (trang dự án), nên khi đưa lên GitHub Pages đổi thành:
+#   baseurl: "/ban-tin-sourcing"
+# Để trống khi chạy ở tên miền gốc (repo <tên>.github.io hoặc tên miền riêng).
+baseurl: "/ban-tin-sourcing"
+url: "https://hannynguyen2015-sys.github.io"
+
+# Đường dẫn gọn: /2026-11-14-sang/
+permalink: /:year-:month-:day-:title/
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+# Tên thứ trong tuần, đánh số theo %w (0 = Chủ nhật).
+thu: ["Chủ nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"]
+
+# Dùng để sắp thuật ngữ A–Z theo tiếng Việt: ký tự đầu là chữ gốc, sau đó là các biến thể có dấu.
+bo_dau: ["aàáạảãâầấậẩẫăằắặẳẵ", "eèéẹẻẽêềếệểễ", "iìíịỉĩ", "oòóọỏõôồốộổỗơờớợởỡ", "uùúụủũưừứựửữ", "yỳýỵỷỹ", "dđ"]
+
+defaults:
+  - scope: { path: "", type: posts }
+    values: { layout: post }
+
+exclude:
+  - HUONG-DAN-VIET-BAI.md
+  - README.md
+  - Gemfile
+  - Gemfile.lock

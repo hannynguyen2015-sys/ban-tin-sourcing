@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+{%- if page.title and page.url != "/" %}
+<title>{{ page.title | escape }} · {{ site.title | escape }}</title>
+{%- else %}
+<title>{{ site.title | escape }}</title>
+{%- endif %}
+<link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}">
+</head>
+<body>
+<a class="skip" href="#noi-dung">Bỏ qua tới nội dung</a>
+<header class="site-head">
+  <div class="wrap site-head__in">
+    <a class="site-name" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+    <nav class="site-nav" aria-label="Chính">
+      <a href="{{ '/' | relative_url }}#luu-tru">Lưu trữ &amp; tìm</a>
+      <a href="{{ '/thuat-ngu/' | relative_url }}"{% if page.url == "/thuat-ngu/" %} aria-current="page"{% endif %}>Thuật ngữ</a>
+    </nav>
+  </div>
+</header>
+<main id="noi-dung" class="wrap">
+{{ content }}
+</main>
+<footer class="site-foot">
+  <div class="wrap">
+    <p>{{ site.title }} · cập nhật 7:30 và 16:30 giờ Việt Nam. Tin tóm tắt từ nguồn công khai; mở link nguồn để đọc bản gốc.</p>
+  </div>
+</footer>
+</body>
+</html>

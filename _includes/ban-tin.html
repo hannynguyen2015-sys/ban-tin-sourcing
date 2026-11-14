@@ -1,0 +1,99 @@
+{%- comment -%}
+  Một bản tin đầy đủ. Tham số:
+    post  = bài (page trên trang bài, site.posts.first trên trang chủ)
+    body  = nội dung đã chuyển từ Markdown sang HTML
+    moi_nhat = true trên trang chủ (thêm nhãn và link tới trang riêng)
+  Thân bài được cắt theo <h2 (nhóm tin) rồi <h3 (từng tin) để bọc thành thẻ.
+  Chỉ dùng Liquid 4 + bộ lọc có sẵn của Jekyll 3.x trên GitHub Pages.
+{%- endcomment -%}
+{%- assign post = include.post -%}
+<article class="bt">
+  <header class="bt-head">
+    <p class="bt-eyebrow">
+      {%- if include.moi_nhat %}<span class="bt-new">Bản tin mới nhất</span>{% endif -%}
+      {% include ngay.html date=post.date buoi=post.buoi %}
+    </p>
+    <h1 class="bt-title">{{ post.title | escape }}</h1>
+    {%- if include.moi_nhat %}
+    <p class="bt-perma"><a href="{{ post.url | relative_url }}">Mở trang riêng của bản tin này</a></p>
+    {%- endif %}
+  </header>
+
+  {%- if post.chu_y and post.chu_y != "" %}
+  <section class="key" aria-label="Điều cần chú ý nhất">
+    <p class="key__lab">Điều cần chú ý nhất</p>
+    <p class="key__txt">{{ post.chu_y | markdownify | remove: '<p>' | remove: '</p>' | strip }}</p>
+  </section>
+  {%- endif %}
+
+  {%- if post.khong_co_tin %}
+  <p class="none">Lần quét này không có tin mới đủ liên quan tới nhóm hàng của mình.</p>
+  {%- endif %}
+
+  {%- if post.kpis and post.kpis.size > 0 %}
+  <div class="kpis">
+    {%- for k in post.kpis %}
+    <div class="kpi">
+      <p class="kpi__k">{{ k.label | escape }}</p>
+      <p class="kpi__v">{{ k.value | escape }}</p>
+      {%- if k.note and k.note != "" %}<p class="kpi__u">{{ k.note | escape }}</p>{% endif %}
+      {%- if k.change and k.change != "" %}<p class="kpi__d">{{ k.change | escape }}</p>{% endif %}
+    </div>
+    {%- endfor %}
+  </div>
+  {%- endif %}
+
+  {%- assign secs = include.body | split: '<h2' -%}
+  {%- assign n = 0 -%}
+  {%- for s in secs -%}
+    {%- if forloop.first -%}
+      {%- assign pre = s | strip -%}
+      {%- if pre != "" and post.khong_co_tin != true %}
+  <div class="intro">{{ s | replace: '<p><em>Không có tin', '<p class="empty"><em>Không có tin' }}</div>
+      {%- endif -%}
+      {%- continue -%}
+    {%- endif -%}
+    {%- assign hp = s | split: '</h2>' -%}
+    {%- assign h2open = hp[0] -%}
+    {%- assign rest = s | remove_first: h2open | remove_first: '</h2>' -%}
+    {%- assign cards = rest | split: '<h3' %}
+  <section class="sec">
+    <h2{{ h2open }}</h2>
+    {%- for c in cards -%}
+      {%- if forloop.first -%}
+        {%- assign lead = c | strip -%}
+        {%- if lead != "" -%}
+          {{ lead | replace: '<p><em>Không có tin', '<p class="empty"><em>Không có tin' }}
+        {%- endif -%}
+        {%- continue -%}
+      {%- endif -%}
+      {%- assign n = n | plus: 1 -%}
+      {%- assign cp = c | split: '</h3>' -%}
+      {%- assign hd = cp[0] -%}
+      {%- assign attrs = hd | split: '>' | first -%}
+      {%- assign ttl = hd | remove_first: attrs | remove_first: '>' -%}
+      {%- assign cbody = c | remove_first: hd | remove_first: '</h3>' -%}
+      {%- assign cbody = cbody | replace: '<blockquote>', '<blockquote class="impact">' -%}
+      {%- assign cbody = cbody | replace: '<strong>Ảnh hưởng tới mình:</strong>', '<span class="impact__lab">Ảnh hưởng tới mình</span>' -%}
+      {%- assign cbody = cbody | replace: '<strong>Ảnh hưởng tới mình</strong>:', '<span class="impact__lab">Ảnh hưởng tới mình</span>' -%}
+      {%- assign cbody = cbody | replace: '<p>Nguồn:', '<p class="src">Nguồn:' -%}
+      {%- assign cbody = cbody | replace: '">https://www.', '">' | replace: '">https://', '">' %}
+    <div class="card">
+      <h3{{ attrs }}><span class="card__n">{{ n }}</span><span>{{ ttl }}</span></h3>
+      {{ cbody | strip }}
+    </div>
+    {%- endfor %}
+  </section>
+  {%- endfor %}
+
+  {%- if post.terms and post.terms.size > 0 %}
+  <section class="sec gloss">
+    <h2>Ghi chú thuật ngữ</h2>
+    {% include bang-thuat-ngu.html terms=post.terms %}
+  </section>
+  {%- endif %}
+
+  {%- if post.ghi_chu and post.ghi_chu != "" %}
+  <p class="bt-note">{{ post.ghi_chu | escape }}</p>
+  {%- endif %}
+</article>
