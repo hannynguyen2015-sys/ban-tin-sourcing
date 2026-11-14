@@ -1,15 +1,23 @@
-/* Bản tin ngành Sourcing. Mọi màu là token đo từ bản tin 14/11; không thêm màu mới. */
+/* Bản tin ngành Sourcing. Màu thương hiệu: navy #1C4587 (chính) + vàng #C9A862 (nhấn).
+   Vàng chỉ làm viền, gạch, nền chip; không làm chữ trên nền sáng (vàng/trắng 2.27:1). Tương phản đo 2026-11-14. */
 :root {
-  --accent: #1B3A5C;
-  --accent-subtle: #eff1f4;                                  /* navy 7% trên nền trang (dự phòng) */
-  --accent-subtle: color-mix(in srgb, var(--accent) 7%, var(--page));
+  --brand-navy: #1C4587;
+  --brand-gold: #C9A862;
+
+  --accent: var(--brand-navy);        /* chữ nhấn, link, tiêu đề nhóm: 9.33:1 trên trắng */
+  --accent-subtle: #eff2f7;           /* navy 7% trên nền trắng: nền khung ảnh hưởng, chip */
+  --gold: var(--brand-gold);          /* viền, gạch chân tiêu đề nhóm, vạch nhãn (đồ hoạ, không phải chữ) */
+  --num-bg: #f6f1e6;                  /* vàng 16% trên trắng: nền số thứ tự */
+  --num-fg: var(--brand-navy);        /* số thứ tự: 8.28:1 trên --num-bg */
+  --key-bg: var(--brand-navy);        /* khung "Điều cần chú ý nhất", cả hai chế độ */
+  --on-key: #fff;                     /* 9.33:1 trên navy */
+
   --page: #fff;
   --card: #fff;
-  --sunken: #f4f5f7;
-  --text: #1a1d23;
-  --text-2: #4a5160;
-  --text-3: #646b79;
-  --on-accent: #fff;
+  --sunken: #f4f5f8;
+  --text: #1a1d23;                    /* 16.9:1 */
+  --text-2: #4a5160;                  /* 7.96:1 */
+  --text-3: #646b79;                  /* 5.36:1 trên thẻ, 4.77:1 trên --accent-subtle */
   --border: #cdd2da;
   --border-subtle: #e3e6eb;
 
@@ -21,17 +29,18 @@
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --accent: #8fb4ee;
-    --accent-subtle: #1c2a40;
-    --page: #14161a;
-    --card: #1b1e24;
-    --sunken: #0f1013;
-    --text: #eceef2;
-    --text-2: #b4bac6;
-    --text-3: #8f97a6;
-    --on-accent: #14161a;
-    --border: #363b46;
-    --border-subtle: #262a32;
+    --accent: #8bade4;                /* navy làm sáng cùng sắc độ (217°): 7.32:1 trên thẻ */
+    --accent-subtle: #1a2e4f;         /* navy 40% trên thẻ tối */
+    --num-bg: #1a2e4f;
+    --num-fg: var(--brand-gold);      /* vàng trên navy tối: 6:1 */
+    --page: #11151c;
+    --card: #181e29;
+    --sunken: #0c1016;
+    --text: #eceef2;                  /* 15.75:1 */
+    --text-2: #b4bac6;                /* 8.58:1 */
+    --text-3: #8f97a6;                /* 5.69:1 trên thẻ, 4.62:1 trên --accent-subtle */
+    --border: #313b4d;
+    --border-subtle: #232b38;
   }
 }
 
@@ -57,7 +66,7 @@ p { text-wrap: pretty; }
 .site-head { border-bottom: 1px solid var(--border-subtle); background: var(--page); }
 .site-head__in { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 20px; padding-top: 14px; padding-bottom: 14px; }
 .site-name { font-weight: 700; font-size: 16px; color: var(--text); text-decoration: none; }
-.site-name::before { content: ""; display: inline-block; width: 10px; height: 10px; margin-right: 8px; border-radius: 2px; background: var(--accent); }
+.site-name::before { content: ""; display: inline-block; width: 10px; height: 10px; margin-right: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 2px var(--accent-subtle); }
 .site-nav { display: flex; gap: 18px; font-size: 14.5px; }
 .site-nav a { color: var(--text-2); text-decoration: none; padding: 6px 0; }
 .site-nav a:hover, .site-nav a[aria-current] { color: var(--accent); text-decoration: underline; }
@@ -76,8 +85,9 @@ main.wrap { padding-top: 28px; padding-bottom: 40px; }
 .bt-perma { margin: 6px 0 0; font-size: 14px; }
 
 /* Điều cần chú ý nhất */
-.key { margin: 0 0 24px; padding: 18px 20px 20px; border-radius: var(--radius); background: var(--accent); color: var(--on-accent); }
-.key__lab { margin: 0 0 6px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
+.key { margin: 0 0 24px; padding: 18px 20px 20px; border-radius: var(--radius); background: var(--key-bg); color: var(--on-key); border-bottom: 3px solid var(--gold); }
+.key__lab { margin: 0 0 6px; display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.key__lab::before { content: ""; width: 18px; height: 2px; background: var(--gold); }
 .key__txt { margin: 0; font-size: 18px; line-height: 1.55; font-weight: 500; }
 .key a { color: inherit; }
 
@@ -88,7 +98,7 @@ main.wrap { padding-top: 28px; padding-bottom: 40px; }
 @media (max-width: 720px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .kpi {
   padding: 12px 14px; background: var(--card); border: 1px solid var(--border);
-  border-top: 3px solid var(--accent); border-radius: var(--radius-sm); line-height: 1.35;
+  border-top: 3px solid var(--gold); border-radius: var(--radius-sm); line-height: 1.35;
 }
 .kpi p { margin: 0; }
 .kpi__k { font-size: 12.5px; font-weight: 600; color: var(--text-2); min-height: 2.7em; }
@@ -99,7 +109,7 @@ main.wrap { padding-top: 28px; padding-bottom: 40px; }
 /* Nhóm tin */
 .sec { margin: 0 0 36px; }
 .sec > h2 {
-  margin: 0 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--accent);
+  margin: 0 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--gold);
   font-size: 22px; font-weight: 700; color: var(--accent);
 }
 .intro { margin-bottom: 24px; }
@@ -112,14 +122,15 @@ main.wrap { padding-top: 28px; padding-bottom: 40px; }
 .card__n {
   flex: none; min-width: 26px; height: 26px; padding: 0 6px; border-radius: 13px;
   display: inline-flex; align-items: center; justify-content: center;
-  font-size: 13px; font-weight: 700; background: var(--accent-subtle); color: var(--accent);
+  font-size: 13px; font-weight: 700; background: var(--num-bg); color: var(--num-fg);
+  box-shadow: inset 0 0 0 1px var(--gold);
   transform: translateY(-2px);
 }
 .card > p { margin: 0 0 12px; }
 .card ul, .card ol { margin: 0 0 12px; padding-left: 22px; }
 .impact {
   margin: 0 0 10px; padding: 10px 14px; background: var(--accent-subtle);
-  border-left: 3px solid var(--accent); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  border-left: 3px solid var(--gold); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 .impact p { margin: 0; font-weight: 500; }
 .impact p + p { margin-top: 6px; }
@@ -154,11 +165,11 @@ main.wrap { padding-top: 28px; padding-bottom: 40px; }
 .pager__a > span:first-child { font-size: 13px; font-weight: 700; color: var(--accent); }
 .pager__a .ngay { font-size: 14px; color: var(--text-2); }
 .pager__a--next { grid-column: 2; text-align: right; }
-.pager__a:hover { border-color: var(--accent); }
+.pager__a:hover { border-color: var(--gold); }
 .back { font-size: 14px; }
 
 /* Lưu trữ */
-.archive { margin-top: 48px; padding-top: 28px; border-top: 2px solid var(--accent); }
+.archive { margin-top: 48px; padding-top: 28px; border-top: 2px solid var(--gold); }
 .archive__h { margin: 0 0 14px; font-size: 24px; font-weight: 750; }
 .search { margin: 0 0 20px; }
 .search__lab { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 700; color: var(--text-2); }
