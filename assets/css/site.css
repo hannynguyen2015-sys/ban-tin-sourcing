@@ -1,27 +1,48 @@
-/* Bản tin ngành Sourcing. Màu thương hiệu: navy #1C4587 (chính) + vàng #C9A862 (nhấn).
-   Vàng chỉ làm viền, gạch, nền chip; không làm chữ trên nền sáng (vàng/trắng 2.27:1). Tương phản đo 2026-11-14. */
+/* Bản tin ngành Sourcing. Tông ấm như giấy cũ: chữ nâu đen, nhấn đỏ son, phụ xanh mòng két.
+   Mọi cặp chữ/nền đều đạt từ 4.5:1 (đo 2026-11-14; tỉ lệ ghi ở cuối dòng). Đỏ son #c0392b chỉ làm chữ trên
+   nền kem/giấy; trên nền tối nó chỉ làm viền, gạch, nền số thứ tự. Vàng chỉ dùng để tô chữ tìm được và nhãn khung chú ý. */
 :root {
-  --brand-navy: #1C4587;
-  --brand-gold: #C9A862;
+  /* Bảng màu gốc */
+  --c-red: #c0392b;        /* đỏ son */
+  --c-red-deep: #7a1f16;   /* đỏ sẫm */
+  --c-ink: #231f1b;        /* nâu đen ấm */
+  --c-ink-2: #1c1a18;
+  --c-cream: #fffaf0;      /* giấy kem */
+  --c-cream-2: #fffdf8;
+  --c-beige: #f2e7d2;      /* be */
+  --c-teal: #245a6b;       /* mòng két */
+  --c-teal-light: #4f93a8;
+  --c-grey: #6f655a;       /* xám nâu */
+  --c-yellow: #ffcf5a;
+  --c-yellow-pale: #fbe7bd;
 
-  --accent: var(--brand-navy);        /* chữ nhấn, link, tiêu đề nhóm: 9.33:1 trên trắng */
-  --accent-subtle: #eff2f7;           /* navy 7% trên nền trắng: nền khung ảnh hưởng, chip */
-  --gold: var(--brand-gold);          /* viền, gạch chân tiêu đề nhóm, vạch nhãn (đồ hoạ, không phải chữ) */
-  --num-bg: #f6f1e6;                  /* vàng 16% trên trắng: nền số thứ tự */
-  --num-fg: var(--brand-navy);        /* số thứ tự: 8.28:1 trên --num-bg */
-  --key-bg: var(--brand-navy);        /* khung "Điều cần chú ý nhất", cả hai chế độ */
-  --on-key: #fff;                     /* 9.33:1 trên navy */
-
-  --page: #fff;
-  --card: #fff;
-  --sunken: #f4f5f8;
-  --text: #1a1d23;                    /* 16.9:1 */
-  --text-2: #4a5160;                  /* 7.96:1 */
-  --text-3: #646b79;                  /* 5.36:1 trên thẻ, 4.77:1 trên --accent-subtle */
-  --border: #cdd2da;
-  --border-subtle: #e3e6eb;
+  /* Vai trò (chế độ sáng) */
+  --page: var(--c-cream);
+  --card: var(--c-cream-2);
+  --sunken: var(--c-beige);
+  --text: var(--c-ink);              /* 15.73 trang · 16.10 thẻ · 13.35 be */
+  --text-2: #49423b;                 /* nâu đen 50% + xám nâu: 9.50 trang · 9.72 thẻ · 8.06 be */
+  --text-3: var(--c-grey);           /* 5.48 trang · 5.61 thẻ · 4.65 be · 5.02 khung ảnh hưởng */
+  --heading: var(--c-ink);           /* tiêu đề nhóm */
+  --link: var(--c-red-deep);         /* 9.92 trang · 10.15 thẻ */
+  --label: var(--c-red);             /* nhãn chữ hoa, ngày: 5.23 trang · 5.35 thẻ · 4.79 khung ảnh hưởng */
+  --change: var(--c-teal);           /* % thay đổi: 7.51 thẻ (không dùng đỏ để khỏi đọc là "xấu") */
+  --rule: var(--c-red);              /* viền, gạch chân, vạch (đồ hoạ) */
+  --num-bg: var(--c-red);
+  --num-fg: var(--c-cream-2);        /* 5.35 */
+  --impact-bg: #f7f0e1;              /* be 60% trên thẻ */
+  --chip-bg: #f9e7dc;                /* đỏ son 10% trên kem */
+  --chip-fg: var(--c-red-deep);      /* 8.60 */
+  --hover-bg: #f7f0e1;
+  --mark-bg: var(--c-yellow-pale);   /* chữ nâu đen trên đó: 13.46 */
+  --key-bg: var(--c-ink);            /* khung "Điều cần chú ý nhất" */
+  --on-key: var(--c-cream);          /* 15.73 */
+  --key-label: var(--c-yellow);      /* 11.16 trên nâu đen */
+  --border: #d2cbc0;                 /* xám nâu 35% trên kem */
+  --border-subtle: #eae5da;          /* xám nâu 16% trên kem */
 
   --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: Georgia, ui-serif, "Times New Roman", serif;   /* chỉ tiêu đề lớn; font có sẵn, không tải */
   --measure: 760px;
   --gutter: 24px;
   --radius: 10px;
@@ -29,18 +50,29 @@
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --accent: #8bade4;                /* navy làm sáng cùng sắc độ (217°): 7.32:1 trên thẻ */
-    --accent-subtle: #1a2e4f;         /* navy 40% trên thẻ tối */
-    --num-bg: #1a2e4f;
-    --num-fg: var(--brand-gold);      /* vàng trên navy tối: 6:1 */
-    --page: #11151c;
-    --card: #181e29;
-    --sunken: #0c1016;
-    --text: #eceef2;                  /* 15.75:1 */
-    --text-2: #b4bac6;                /* 8.58:1 */
-    --text-3: #8f97a6;                /* 5.69:1 trên thẻ, 4.62:1 trên --accent-subtle */
-    --border: #313b4d;
-    --border-subtle: #232b38;
+    --page: var(--c-ink-2);
+    --card: var(--c-ink);
+    --sunken: #151412;                 /* nâu đen tối thêm 25% */
+    --text: var(--c-cream);            /* 16.68 trang · 15.73 thẻ */
+    --text-2: var(--c-beige);          /* 13.35 thẻ */
+    --text-3: #c4beb3;                 /* xám nâu 45% trên kem: 8.85 thẻ · 7.40 khung ảnh hưởng */
+    --heading: var(--c-cream);
+    --link: var(--c-teal-light);       /* 4.73 thẻ · 5.02 trang */
+    --label: #d88276;                  /* đỏ son 62% trên kem: 5.75 thẻ · 6.09 trang · 4.80 khung ảnh hưởng */
+    --change: var(--c-teal-light);     /* 4.73 thẻ */
+    --rule: var(--c-red);              /* đồ hoạ: 3.01 trên thẻ */
+    --num-bg: var(--c-red);
+    --num-fg: var(--c-cream-2);        /* 5.35 */
+    --impact-bg: #312d28;              /* be 7% trên nâu đen */
+    --chip-bg: #3f241e;                /* đỏ son 18% trên nâu đen */
+    --chip-fg: #d88276;                /* 4.97 */
+    --hover-bg: #312d28;
+    --mark-bg: #571f18;                /* chữ kem trên đó: 12.5 */
+    --key-bg: var(--c-red-deep);
+    --on-key: var(--c-cream);          /* 9.92 */
+    --key-label: var(--c-yellow);      /* 7.04 trên đỏ sẫm */
+    --border: #4c453e;
+    --border-subtle: #37322c;
   }
 }
 
@@ -50,9 +82,9 @@ body {
   margin: 0; background: var(--page); color: var(--text);
   font: 16px/1.6 var(--font);
 }
-a { color: var(--accent); text-underline-offset: 2px; }
+a { color: var(--link); text-underline-offset: 2px; }
 a:hover { text-decoration-thickness: 2px; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; border-radius: 3px; }
 h1, h2, h3 { line-height: 1.3; text-wrap: balance; }
 p { text-wrap: pretty; }
 
@@ -66,28 +98,27 @@ p { text-wrap: pretty; }
 .site-head { border-bottom: 1px solid var(--border-subtle); background: var(--page); }
 .site-head__in { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 20px; padding-top: 14px; padding-bottom: 14px; }
 .site-name { font-weight: 700; font-size: 16px; color: var(--text); text-decoration: none; }
-.site-name::before { content: ""; display: inline-block; width: 10px; height: 10px; margin-right: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 2px var(--accent-subtle); }
+.site-name::before { content: ""; display: inline-block; width: 10px; height: 10px; margin-right: 8px; border-radius: 50%; background: var(--rule); }
 .site-nav { display: flex; gap: 18px; font-size: 14.5px; }
 .site-nav a { color: var(--text-2); text-decoration: none; padding: 6px 0; }
-.site-nav a:hover, .site-nav a[aria-current] { color: var(--accent); text-decoration: underline; }
+.site-nav a:hover, .site-nav a[aria-current] { color: var(--link); text-decoration: underline; }
 main.wrap { padding-top: 28px; padding-bottom: 40px; }
 .site-foot { border-top: 1px solid var(--border-subtle); background: var(--sunken); color: var(--text-3); font-size: 13px; }
 .site-foot p { margin: 0; padding: 18px 0 22px; }
 
 /* Bulletin head */
 .bt-head { margin: 0 0 20px; }
-.bt-eyebrow { margin: 0 0 4px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 14px; font-weight: 600; color: var(--accent); }
+.bt-eyebrow { margin: 0 0 4px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; font-size: 14px; font-weight: 600; color: var(--label); }
 .bt-new {
   font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
-  padding: 2px 8px; border-radius: 4px; background: var(--accent-subtle); color: var(--accent);
+  padding: 2px 8px; border-radius: 4px; background: var(--chip-bg); color: var(--chip-fg);
 }
-.bt-title { margin: 0; font-size: 30px; font-weight: 750; letter-spacing: -.01em; }
+.bt-title { margin: 0; font-family: var(--font-display); font-size: 32px; font-weight: 700; letter-spacing: -.005em; color: var(--heading); }
 .bt-perma { margin: 6px 0 0; font-size: 14px; }
 
 /* Điều cần chú ý nhất */
-.key { margin: 0 0 24px; padding: 18px 20px 20px; border-radius: var(--radius); background: var(--key-bg); color: var(--on-key); border-bottom: 3px solid var(--gold); }
-.key__lab { margin: 0 0 6px; display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-.key__lab::before { content: ""; width: 18px; height: 2px; background: var(--gold); }
+.key { margin: 0 0 24px; padding: 18px 20px 20px; border-radius: var(--radius); background: var(--key-bg); color: var(--on-key); border-left: 6px solid var(--rule); border-radius: 4px var(--radius) var(--radius) 4px; }
+.key__lab { margin: 0 0 6px; display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--key-label); }
 .key__txt { margin: 0; font-size: 18px; line-height: 1.55; font-weight: 500; }
 .key a { color: inherit; }
 
@@ -98,19 +129,19 @@ main.wrap { padding-top: 28px; padding-bottom: 40px; }
 @media (max-width: 720px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .kpi {
   padding: 12px 14px; background: var(--card); border: 1px solid var(--border);
-  border-top: 3px solid var(--gold); border-radius: var(--radius-sm); line-height: 1.35;
+  border-top: 3px solid var(--rule); border-radius: var(--radius-sm); line-height: 1.35;
 }
 .kpi p { margin: 0; }
 .kpi__k { font-size: 12.5px; font-weight: 600; color: var(--text-2); min-height: 2.7em; }
 .kpi__v { margin-top: 6px !important; font-size: 22px; font-weight: 700; line-height: 1.15; color: var(--text); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .kpi__u { margin-top: 2px !important; font-size: 12.5px; color: var(--text-3); }
-.kpi__d { margin-top: 6px !important; font-size: 12.5px; font-weight: 700; color: var(--accent); }
+.kpi__d { margin-top: 6px !important; font-size: 12.5px; font-weight: 700; color: var(--change); }
 
 /* Nhóm tin */
 .sec { margin: 0 0 36px; }
 .sec > h2 {
-  margin: 0 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--gold);
-  font-size: 22px; font-weight: 700; color: var(--accent);
+  margin: 0 0 14px; padding-bottom: 8px; border-bottom: 2px solid var(--rule);
+  font-family: var(--font-display); font-size: 23px; font-weight: 700; color: var(--heading);
 }
 .intro { margin-bottom: 24px; }
 .empty { margin: 0; padding: 14px 18px; border: 1px dashed var(--border); border-radius: var(--radius); color: var(--text-2); }
@@ -123,20 +154,19 @@ main.wrap { padding-top: 28px; padding-bottom: 40px; }
   flex: none; min-width: 26px; height: 26px; padding: 0 6px; border-radius: 13px;
   display: inline-flex; align-items: center; justify-content: center;
   font-size: 13px; font-weight: 700; background: var(--num-bg); color: var(--num-fg);
-  box-shadow: inset 0 0 0 1px var(--gold);
   transform: translateY(-2px);
 }
 .card > p { margin: 0 0 12px; }
 .card ul, .card ol { margin: 0 0 12px; padding-left: 22px; }
 .impact {
-  margin: 0 0 10px; padding: 10px 14px; background: var(--accent-subtle);
-  border-left: 3px solid var(--gold); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  margin: 0 0 10px; padding: 10px 14px; background: var(--impact-bg);
+  border-left: 3px solid var(--rule); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
 .impact p { margin: 0; font-weight: 500; }
 .impact p + p { margin-top: 6px; }
 .impact__lab, .impact p:first-child > strong:first-child {
   display: block; margin-bottom: 2px;
-  font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent);
+  font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--label);
 }
 .card > p.src, .src { margin: 0; font-size: 13.5px; color: var(--text-3); overflow-wrap: anywhere; }
 .src a { overflow-wrap: anywhere; }
@@ -162,15 +192,15 @@ main.wrap { padding-top: 28px; padding-bottom: 40px; }
 /* Trang bài: trước / sau */
 .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 32px 0 8px; padding-top: 20px; border-top: 1px solid var(--border-subtle); }
 .pager__a { display: flex; flex-direction: column; gap: 2px; padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); text-decoration: none; background: var(--card); }
-.pager__a > span:first-child { font-size: 13px; font-weight: 700; color: var(--accent); }
+.pager__a > span:first-child { font-size: 13px; font-weight: 700; color: var(--label); }
 .pager__a .ngay { font-size: 14px; color: var(--text-2); }
 .pager__a--next { grid-column: 2; text-align: right; }
-.pager__a:hover { border-color: var(--gold); }
+.pager__a:hover { border-color: var(--rule); }
 .back { font-size: 14px; }
 
 /* Lưu trữ */
-.archive { margin-top: 48px; padding-top: 28px; border-top: 2px solid var(--gold); }
-.archive__h { margin: 0 0 14px; font-size: 24px; font-weight: 750; }
+.archive { margin-top: 48px; padding-top: 28px; border-top: 2px solid var(--rule); }
+.archive__h { margin: 0 0 14px; font-family: var(--font-display); font-size: 25px; font-weight: 700; color: var(--heading); }
 .search { margin: 0 0 20px; }
 .search__lab { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 700; color: var(--text-2); }
 .search__in {
@@ -178,24 +208,24 @@ main.wrap { padding-top: 28px; padding-bottom: 40px; }
   background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-sm);
 }
 .search__in::placeholder { color: var(--text-3); }
-.search__in:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+.search__in:focus { outline: 2px solid var(--link); outline-offset: 1px; border-color: var(--link); }
 .results { margin: 0 0 28px; }
 .results__n { margin: 0 0 8px; font-size: 13px; color: var(--text-3); }
 .months { display: grid; gap: 22px; }
-.month__h { margin: 0 0 8px; font-size: 15px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .05em; }
+.month__h { margin: 0 0 8px; font-size: 15px; font-weight: 700; color: var(--label); text-transform: uppercase; letter-spacing: .05em; }
 .month__h span { margin-left: 6px; font-size: 13px; font-weight: 500; color: var(--text-3); text-transform: none; letter-spacing: 0; }
 .days { list-style: none; margin: 0; padding: 0; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); overflow: hidden; }
 .days li + li { border-top: 1px solid var(--border-subtle); }
 .day { display: grid; grid-template-columns: 13.5em minmax(0, 1fr); gap: 4px 14px; padding: 11px 16px; text-decoration: none; color: var(--text); }
-.day:hover { background: var(--accent-subtle); }
-.day .ngay { font-size: 14px; font-weight: 700; color: var(--accent); white-space: nowrap; }
+.day:hover { background: var(--hover-bg); }
+.day .ngay { font-size: 14px; font-weight: 700; color: var(--label); white-space: nowrap; }
 .day__t { font-size: 14.5px; color: var(--text-2); }
-.day__t mark { background: var(--accent-subtle); color: var(--text); font-weight: 600; padding: 0 1px; }
+.day__t mark { background: var(--mark-bg); color: var(--text); font-weight: 600; padding: 0 1px; }
 @media (max-width: 600px) { .day { grid-template-columns: minmax(0, 1fr); } }
 
 @media (max-width: 600px) {
   main.wrap { padding-top: 22px; }
-  .bt-title { font-size: 25px; }
+  .bt-title { font-size: 27px; }
   .key__txt { font-size: 17px; }
   .card { padding: 14px; }
   .card h3 { font-size: 17px; }
